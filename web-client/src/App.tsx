@@ -92,6 +92,19 @@ function App() {
     })
   };
 
+  const onDeleteItem = (id: string | number) => {
+    // Make a api call to delete record and get last item of ${meta.page} page items as response or can call a seperate api.
+  };
+
+  // const onAddItem = (id: string | number) => {
+    // Make a api call to add record.
+    // order or position on new record depends on sort/filters applied.
+  // };
+
+  // const onUpdateItem = (id, data) => {
+    // find item with id and replace in rows list
+  // }
+
   if (meta.err.msg) {
     // We can make reusable alert Component
     return (<div className="alert alert-danger" role="alert">
@@ -121,7 +134,9 @@ function App() {
               <Table.Data>{item.country}</Table.Data>
               <Table.Data>
                 {/* Writing direct button and related css for demo, in live project i will create a reusable button component with scoped scss.  */}
-                <button className="btn btn-danger btn-sm" disabled>Remove</button>
+                <button className="btn btn-danger btn-sm" onClick={() => {
+                  onDeleteItem(item._id);
+                }} disabled>Remove</button>
               </Table.Data>
             </>
           );

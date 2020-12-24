@@ -20,7 +20,16 @@ interface TableProps {
   render?: Function;
   loadingContent?: React.ReactNode,
   onInfinite?: Function;
-  children?: React.ReactNode
+  children?: React.ReactNode;
+  // More functionalities related to Table component can be implemented, as of now iam ignoring these functionalities.
+  draggable?: boolean,
+  onDrag?: Function,
+  resizable?: boolean,
+  onResize?: Function,
+  columnsMeta?: any;
+  fixedHeader?: boolean;
+  fixedFooter?: boolean;
+  footerItems?: Array<any>;
 }
 
 interface TableDataProps { children?: React.ReactNode; dataClass?: string }
@@ -44,6 +53,10 @@ const getContainerClass = (props: TableProps) => {
 const getHeaderClass = (props: TableProps) => {
   const headerClass = styles[`thead-${props.headVariant}`];
   return `${headerClass} ${props.headerClass}`;
+};
+
+const getBodyClass = (props: TableProps) => {
+  return props.bodyClass;
 };
 
 const getLoadingTemplate = (props: TableProps) => {
@@ -72,6 +85,7 @@ const Table = (props: TableProps) => {
   const containerClass = getContainerClass(props);
   const tableClass = getTableClass(props);
   const headerClass = getHeaderClass(props);
+  const bodyClass = getBodyClass(props);
 
   return (
     <div className={containerClass}>
@@ -103,7 +117,7 @@ const Table = (props: TableProps) => {
             })}
           </tr>
         </thead>
-        <tbody className={props.bodyClass}>
+        <tbody className={bodyClass}>
           {props.rows.map((item: any) => {
             return <tr key={item.key}>{props.render && props.render(item)}</tr>;
           })}
@@ -115,16 +129,17 @@ const Table = (props: TableProps) => {
 };
 
 Table.defaultProps = {
-  breakPoint: "",
-  containerClass: "text-left",
-  responsive: false,
   columns: [],
   rows: [],
-  variant: "light",
+  responsive: false,
+  breakPoint: '',
   type: 'striped',
+  variant: "light",
   headVariant: "light",
+  containerClass: "text-left",
   tableClass: '',
   headerClass: '',
+  bodyClass: '',
 };
 
 Table.Data = TableData;
