@@ -66,7 +66,7 @@ const InputLabel = styled.div`
 `;
 
 const Text = () => {
-  return <>asdasd</>;
+  return <></>;
 };
 
 Text.H1 = H1;
